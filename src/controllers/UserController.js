@@ -73,14 +73,41 @@ class UserController {
 
     //DELETAR USUARIO
     async delete(req, res) {
-        const id = req.params.id;
-        const updated = await User.findByIdAndDelete(id);
+        try {
+            const id = req.params.id;
+            const updated = await User.findByIdAndDelete(id);
 
-        res.status(200).json(userUpdated);
+            res.status(200).json(userUpdated);
+        } catch (error) {
+            res.status(401).json(error);
+        }
     }
-    catch(error) {
-        res.status(401).json(error);
+
+    async stats(req, res) {
+        const date = new Date();
+
+        const lastYear = new Date(date.setFullYear(date.getFullYear() -1 ))
+
+        try {
+            const data = await User.aggregate([
+                {$match: {createdAt: {$gte: lastYear}}},
+                {
+                    $project:{
+                        month:{$month:"createdAt"}
+                    }
+                },
+                {
+                    $group:{
+                        _id:"month",
+                        total:{$sum:1}
+                    }   
+                }
+            ])
+            res.status(200).json(data)
+        } catch (error) {
+            res.status(401).json(error);
+        }
     }
 }
 
-module.exports = new UserController;
+module.exports = new UserController();

@@ -9,6 +9,8 @@ dotenv.config()
 //Rotas
 const authRoutes = require('./src/routes/AuthRoutes');
 const userRouter= require('./src/routes/UserRoutes')
+const ProductRoutes= require('./src/routes/ProductRoutes')
+const CartRoutes= require('./src/routes/CartRoutes')
 
 //Porta do Servidor
 const port = process.env.PORT
@@ -27,8 +29,8 @@ database.test();
 
 app.use('/api/auth',authRoutes)
 app.use('/api/user',userRouter)
-// app.use('/api/service/',serviceRouter)
-// app.use('/api/cliente/',clienteRouter)
+app.use('/api/product',ProductRoutes)
+app.use('/api/cart',CartRoutes)
 // app.use('/api/agendamento/',AgendamentoRouter)
 // app.use('/api/produto/',ProdutoRouter)
 

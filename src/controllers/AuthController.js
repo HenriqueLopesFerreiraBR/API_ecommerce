@@ -1,9 +1,13 @@
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv')
+dotenv.config()
 
+    const secret = process.env.SECRET_KEY;
 
 class AuthController {
-    
+
     //REGISTER
     async register(req, res) {
         try {
@@ -52,7 +56,14 @@ class AuthController {
                 return res.status(433).json("Senha invalida");
             }
 
-            res.status(200).json(`Bem  vindo ${user.username}`)
+         
+            const acessToken = jwt.sign({
+                id: user._id,
+                isAdmin: user.isAdmin
+            }, secret, 
+            {expiresIn:"3d"});   
+            
+            res.status(200).json({user,acessToken})
         } catch (error) {
             res.status(433).json(error);
         }
