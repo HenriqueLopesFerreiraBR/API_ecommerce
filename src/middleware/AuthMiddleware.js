@@ -8,6 +8,7 @@ class AuthMiddleware {
 
     constructor() {
         this.verifyTokenAndAuthorization = this.verifyTokenAndAuthorization.bind(this);
+        this.verifyTokenAndAdmin = this.verifyTokenAndAdmin.bind(this)
     }
 
     async verifyToken (req,res,next) {

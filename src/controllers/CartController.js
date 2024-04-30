@@ -46,7 +46,7 @@ class CartController {
 
     async getUserId(req, res) {
         try {
-            const id = req.params.userId;
+            const userId = req.params.userId;
             const cart = await Cart.findOne({userId:userId});
             res.status(200).json(cart);
         } catch (error) {
@@ -54,21 +54,7 @@ class CartController {
         }
     }
 
-    //Buscar por Productname
-    // async getByname(req, res) {
-    //     try {
-    //         const title = req.body.title;
-    //         const cart = await Cart.findOne({ title: title });
-    //         if (!cart) {
-    //             res.status(400).json("Produto não existe");
-    //         }
-    //         res.status(200).json(cart);
-    //     } catch (error) {
-    //         res.status(401).json(error);
-    //     }
-    // }
-
-    //ATUALIZAR O CADASTRO DO USUARIO
+    //ATUALIZAR CARRINHO
     async update(req, res) {
         try {
             const id = req.params.id;

@@ -7,10 +7,8 @@ const database = require('./src/database/db')
 dotenv.config()
 
 //Rotas
-const authRoutes = require('./src/routes/AuthRoutes');
-const userRouter= require('./src/routes/UserRoutes')
-const ProductRoutes= require('./src/routes/ProductRoutes')
-const CartRoutes= require('./src/routes/CartRoutes')
+const IndexRoutes= require('./src/routes/index')
+const PaymentRoutes= require('./src/routes/StripeRoutes')
 
 //Porta do Servidor
 const port = process.env.PORT
@@ -27,12 +25,10 @@ app.use(cors())
 database.test();
 
 
-app.use('/api/auth',authRoutes)
-app.use('/api/user',userRouter)
-app.use('/api/product',ProductRoutes)
-app.use('/api/cart',CartRoutes)
-// app.use('/api/agendamento/',AgendamentoRouter)
-// app.use('/api/produto/',ProdutoRouter)
+app.use('/api',IndexRoutes);
+app.use('/api',PaymentRoutes);
+
+
 
 
 

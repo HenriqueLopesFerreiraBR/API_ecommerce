@@ -39,7 +39,7 @@ class UserController {
     //Buscar por username
     async getByUsername(req, res) {
         try {
-            const username = req.body;
+            const username = req.body.username;
             const user = await User.findOne({ username: username });
             if (!user) {
                 res.status(400).json("Usuário não existe");
